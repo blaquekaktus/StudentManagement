@@ -32,7 +32,7 @@ public class StudentenServicesImpl implements StudentenService{
     }
 
     @Override
-    public List<Student> alleStundentenMItPlz(String plz) {
+    public List<Student> alleStundentenMitPlz(String plz) {
         return this.dbZugriffStudenten.alleStudentenAusDemOrt(plz);
     }
 

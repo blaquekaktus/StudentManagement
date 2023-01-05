@@ -3,8 +3,13 @@ package com.example.studentmanagement.controller;
 
 import com.example.studentmanagement.domain.Student;
 import com.example.studentmanagement.exceptions.StudentNichtGefunden;
+import com.example.studentmanagement.exceptions.StudentValidierungFehlgeschlagen;
 import com.example.studentmanagement.service.StudentenService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,9 +29,24 @@ public class StudentRestController {
     }
 
     @PostMapping
-    public ResponseEntity<Student> studentEinfuegen (@RequestBody Student student){
-       return ResponseEntity.ok(this.studentenService.studentEinfuegen(student));
+    public ResponseEntity<Student> studentEinfuegen (@Valid @RequestBody Student student, BindingResult bindingResult) throws StudentValidierungFehlgeschlagen {
+       String errors = "";
+       if(bindingResult.hasErrors()){
+           for(ObjectError error : bindingResult.getAllErrors()){
+               errors += "\nValidierungsfehler für Objekt " + error.getObjectName() + " im Feld "
+                       + ((FieldError)error).getField() + "mit folgendem Problem: " + error.getDefaultMessage();
+           }
+           throw new StudentValidierungFehlgeschlagen(errors);
+       }else{
+           return ResponseEntity.ok(this.studentenService.studentEinfuegen(student));
+       }
     }
+
+    /**
+     *
+     * @param id
+     * @return
+     */
     @DeleteMapping("/{id}")
     public String studentloeschen(@PathVariable Long id){
         this.studentenService.studentMitIdLoeschen(id);
@@ -35,12 +55,12 @@ public class StudentRestController {
 
     @GetMapping("/mitplz/{plz}")
 
-    public ResponseEntity<List<Student>>allStudentenMitPly  (String plz){
-        return ResponseEntity.ok(this.studentenService.alleStundentenMItPlz(plz));
+    public ResponseEntity<List<Student>>alleStudentenMitPlz(@PathVariable String plz){
+        return ResponseEntity.ok(this.studentenService.alleStundentenMitPlz(plz));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Student>studentMitId(Long id) throws StudentNichtGefunden    {
+    public ResponseEntity<Student>studentMitId(@PathVariable Long id) throws StudentNichtGefunden    {
         return ResponseEntity.ok(this.studentenService.studentMitId(id));
     }
 

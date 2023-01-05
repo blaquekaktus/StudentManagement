@@ -23,10 +23,10 @@ public class Student {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
-    @Size(min=2, max=30)        //size constraint (valication dependency): name must be minimum 2 characters long
+    @Size(min=2, max=30)        //size constraint (validation dependency): name must be minimum 2 characters long
     private String name;
 
-    @Size(min=4, max=6)         //size constraint (valication dependency): plz must be minimum 2 characters and maximum 6 characters long
+    @Size(min=4, max=6)         //size constraint (validation dependency): plz must be minimum 2 characters and maximum 6 characters long
     private  String plz;
 
     //constructor to create a student by giving the name and plz

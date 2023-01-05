@@ -23,7 +23,7 @@ public class StudentManagementApplication implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        System.out.println("Hey SpringBoot!");
+        //System.out.println("Hey SpringBoot!");
         this.dbZugriffStudenten.studentSpeichern (new Student("Sonja Lechner", "6060"));
         this.dbZugriffStudenten.studentSpeichern (new Student("Penny Lechner", "6060"));
         this.dbZugriffStudenten.studentSpeichern (new Student("Susie Lechner", "6060"));

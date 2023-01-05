@@ -41,7 +41,7 @@ public class DbZugriffStudentenJPA implements DbZugriffStudenten{
         if (optStudent.isPresent()) {
             return optStudent.get();
         }else{
-            throw new StudentNichtGefunden("Student mit der ID: "+ id + "nicht gefunden");
+            throw new StudentNichtGefunden("Student mit der ID: " + id + " nicht gefunden");
         }
 
     }

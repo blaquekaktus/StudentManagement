@@ -3,9 +3,10 @@ package com.example.studentmanagement.service;
 import com.example.studentmanagement.domain.Student;
 import com.example.studentmanagement.exceptions.StudentNichtGefunden;
 import com.example.studentmanagement.repositories.DbZugriffStudenten;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Service
 public class StudentenServicesImpl implements StudentenService{
 
     private DbZugriffStudenten dbZugriffStudenten;
